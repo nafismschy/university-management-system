@@ -81,6 +81,12 @@ export class FacultyService {
     return await this.facultyRepository.delete({ id: id });
   }
 
+  async getFacultyById(id: number): Promise<Object> {
+    const {password, ...response} = await this.findIfExists(id);
+    return response;
+    
+  }
+
   async getFacultySections(id: number): Promise<Object[]> {
     const faculty = await this.findIfExists(id);
     const sections = await this.facultyRepository.find({
@@ -105,7 +111,7 @@ export class FacultyService {
   ) {
     const faculty = await this.findIfExists(id);
     faculty.profilePhoto = uploadedProfilePhoto.filename;
-    const { password, profilePhoto, ...response } =
+    const { password, ...response } =
       await this.facultyRepository.save({
         id,
         ...faculty,

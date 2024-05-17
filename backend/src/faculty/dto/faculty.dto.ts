@@ -40,12 +40,10 @@ export class CreateFacultyDto {
   fullName: string;
 
   @IsNotEmpty({ message: 'dateOfBirth is required' })
-  @IsDateString({}, { message: 'dateOfBirth must be a valid date' })
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @IsNotEmpty({ message: 'joiningDate is required' })
-  @IsDateString({}, { message: 'joiningDate must be a valid date' })
-  joiningDate: Date;
+  joiningDate: string;
 
   @IsNotEmpty({ message: 'designation is required' })
   @Length(8, 100, {
@@ -54,12 +52,6 @@ export class CreateFacultyDto {
   @IsString({ message: 'designation must be a string' })
   designation: string;
 
-  @Optional()
-  profilePhoto: string;
-
-  @IsNotEmpty({ message: 'salary is required' })
-  @Min(1000, {message: 'salary must be greater than or equal to 10,000'})
-  @IsInt({ message: 'salary must be a number' })
   salary: number;
 
 
@@ -108,13 +100,11 @@ export class UpdateFacultyDTO {
 
   @Optional()
   @IsNotEmpty({ message: 'dateOfBirth is required' })
-  @IsDateString({}, { message: 'dateOfBirth must be a valid date' })
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @Optional()
   @IsNotEmpty({ message: 'joiningDate is required' })
-  @IsDateString({}, { message: 'joiningDate must be a valid date' })
-  joiningDate: Date;
+  joiningDate: string;
 
   @Optional()
   @IsNotEmpty({ message: 'designation is required' })
@@ -124,8 +114,6 @@ export class UpdateFacultyDTO {
   @IsString({ message: 'designation must be a string' })
   designation: string;
 
-  @Optional()
-  profilePhoto: string;
 
   @Optional()
   id: number;
@@ -148,9 +136,9 @@ export class GetFacultyDTO {
 
   fullName: string;
 
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
-  joiningDate: Date;
+  joiningDate: string;
 
   designation: string;
 

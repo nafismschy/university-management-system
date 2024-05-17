@@ -10,12 +10,12 @@ export class ArticleEntity {
   title: string;
 
   @Column({ name: 'datePublished', type: 'date' })
-  datePublished: Date;
+  datePublished: string;
 
   @Column({ name: 'content', type: 'varchar', length: 5000 })
   content: string;
 
-  @Column({ name: 'tags', type: 'varchar', length: '100', array: true })
+  @Column({ name: 'tags', type: 'varchar', length: '100', array: true, nullable: true })
   tags: string[];
 
   @ManyToOne(() => FacultyEntity, (faculty) => faculty.articles)
