@@ -37,6 +37,11 @@ export class FacultyController {
     else return this.facultyService.findAllByDesignation(designation);
   }
 
+
+  @Get(':id')
+  async getFacultyById(@Param('id', ParseIntPipe) id: number): Promise<Object> {
+    return await this.facultyService.getFacultyById(id);
+  }
   @Get(':id/sections')
   async getFacultySections(@Param('id', ParseIntPipe) id: number): Promise<Object[]> {
     return await this.facultyService.getFacultySections(id);
@@ -44,10 +49,10 @@ export class FacultyController {
 
   @Get(':id/articles')
   async getFacultyArticles(@Param('id', ParseIntPipe) id: number): Promise<Object[]> {
-    return await this.facultyService.getFacultySections(id);
+    return await this.facultyService.getFacultyArticles(id);
   }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @UsePipes()
   @Patch(':id')
   update(
@@ -71,7 +76,7 @@ export class FacultyController {
     return this.facultyService.getProfilePhoto(id,res);
   }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Post(':id/uploadProfilePhoto')
   @UseInterceptors(
     FileInterceptor('profilePhoto', {

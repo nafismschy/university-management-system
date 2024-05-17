@@ -1,6 +1,7 @@
 import { ArticleEntity } from 'src/article/entities/article.entity';
+import { ProfileEntity } from 'src/profile/entities/profile.entity';
 import { SectionEntity } from 'src/section/entities/section.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('faculty')
 export class FacultyEntity {
@@ -20,10 +21,10 @@ export class FacultyEntity {
   fullName: string;
 
   @Column({ name: 'dateOfBirth', type: 'date' })
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @Column({ name: 'joiningDate', type: 'date' })
-  joiningDate: Date;
+  joiningDate: string;
 
   @Column({ name: 'designation', type: 'varchar', length: 100 })
   designation: string;
@@ -46,4 +47,7 @@ export class FacultyEntity {
   articles: ArticleEntity[];
 
   
+  @OneToOne(() => ProfileEntity, profile => profile.faculty)
+  @JoinColumn()
+  profile: ProfileEntity;
 }

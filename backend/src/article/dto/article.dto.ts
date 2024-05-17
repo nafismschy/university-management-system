@@ -17,12 +17,10 @@ export class CreateArticleDTO {
   content: string;
 
   @IsNotEmpty({ message: 'datePublished is required' })
-  @IsDateString({}, { message: 'datePublished must be a valid date' })
   @IsNotEmpty({ message: 'datePublished is required' })
-  datePublished: Date;
+  datePublished: string;
 
-  @IsNotEmpty({ message: 'tags is required' })
-  @IsArray({ message: 'tags must be an array' })
+
   tags: string[];
 
 

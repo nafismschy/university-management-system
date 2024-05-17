@@ -1,7 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { FacultyService } from '../faculty.service';
-import { CreateFacultyDto, GetFacultyDTO, LoginFacultyDTO } from 'src/faculty/dto/faculty.dto';
+import {
+  CreateFacultyDto,
+  GetFacultyDTO,
+  LoginFacultyDTO,
+} from 'src/faculty/dto/faculty.dto';
 import * as bcrypt from 'bcrypt';
 import { FacultyEntity } from '../entities/faculty.entity';
 
@@ -12,22 +16,28 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(facultyObject: CreateFacultyDto): Promise<GetFacultyDTO> { 
-     return await this.facultyService.register(facultyObject);
+  async register(facultyObject: CreateFacultyDto): Promise<GetFacultyDTO> {
+    return await this.facultyService.register(facultyObject);
   }
 
-  async login(loginData: LoginFacultyDTO): Promise<{ access_token: string }> {
+  async login(
+    loginData: LoginFacultyDTO,
+  ): Promise<{ access_token: string, user_id: number }> {
     const faculty = await this.facultyService.login(loginData);
     if (!faculty) {
       throw new UnauthorizedException();
     }
-    const passwordMatched = await bcrypt.compare(loginData.password, faculty.password);
+    const passwordMatched = await bcrypt.compare(
+      loginData.password,
+      faculty.password,
+    );
     if (!passwordMatched) {
       throw new UnauthorizedException();
     }
     const payload = loginData;
     return {
       access_token: await this.jwtService.signAsync(payload),
+      user_id: faculty.id,
     };
   }
 }
